@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Digest_Recipient_Email__c</fullName>
+    <description>Email address that receives the weekly notices-due digest (Cecily).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Email address that receives the weekly notices-due digest (Cecily).</inlineHelpText>
+    <label>Digest Recipient Email</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+</CustomField>

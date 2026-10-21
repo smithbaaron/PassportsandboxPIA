@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <description>Runs every morning and creates the notice-due reminder task for each CS rep via the Notice Reminder Core flow. Pause with the Reminders Enabled setting rather than deactivating.</description>
+    <environments>Default</environments>
+    <interviewLabel>Notice Reminder (daily) {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Price Escalation - Notice Reminder (Daily)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Run_Reminder_Core</targetReference>
+        </connector>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-10-22</startDate>
+            <startTime>11:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Run_Reminder_Core</name>
+        <label>Run Notice Reminder Core</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <flowName>Price_Escalation_Notice_Reminder_Core</flowName>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+</Flow>

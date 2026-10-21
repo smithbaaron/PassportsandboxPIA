@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_Until_Notice_Due__c</fullName>
+    <externalId>false</externalId>
+    <label>Days Until Notice Due</label>
+    <precision>5</precision>
+    <scale>0</scale>
+    <formula>IF(ISBLANK(Next_Increase_Date__c), NULL, (Next_Increase_Date__c - BLANKVALUE(Notice_Days__c, 60)) - TODAY())</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Planning_Percentage__c</fullName>
+    <description>Planning percentage applied to every clause without its own Planned Percentage. 5 is the 2027 assumption.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Planning percentage applied to every clause without its own Planned Percentage. 5 is the 2027 assumption.</inlineHelpText>
+    <label>Default Planning Percentage</label>
+    <precision>5</precision>
+    <scale>2</scale>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

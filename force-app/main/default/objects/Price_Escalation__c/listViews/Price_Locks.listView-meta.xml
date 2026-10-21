@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Locks</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Price_Lock_End_Date__c</columns>
+    <columns>Products_Covered__c</columns>
+    <columns>Client_Success_Rep__c</columns>
+    <columns>Next_Increase_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Price_Lock__c</field>
+        <operation>equals</operation><value>1</value>
+    </filters>
+    <label>Price Locks</label>
+</ListView>

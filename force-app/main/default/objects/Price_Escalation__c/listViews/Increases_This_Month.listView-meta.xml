@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Increases_This_Month</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Escalator_Type__c</columns>
+    <columns>Primary_Product__c</columns>
+    <columns>Next_Increase_Date__c</columns>
+    <columns>Notice_Due_Date__c</columns>
+    <columns>Days_Until_Notice_Due__c</columns>
+    <columns>Estimated_Increase_Amount__c</columns>
+    <columns>Client_Success_Rep__c</columns>
+    <columns>Status__c</columns>
+    <columns>Current_Increase_Opportunity__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Next_Increase_Date__c</field>
+        <operation>equals</operation><value>THIS_MONTH</value>
+    </filters>
+    <label>Increases Effective This Month</label>
+</ListView>

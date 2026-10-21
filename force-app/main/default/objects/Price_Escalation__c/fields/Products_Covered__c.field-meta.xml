@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Products_Covered__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Every product or fee the clause covers. Use Products Covered Detail for specifics such as a named fee or rate.</inlineHelpText>
+    <label>Products Covered</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Mobile Pay (MPP)</fullName>
+                    <default>false</default>
+                    <label>Mobile Pay (MPP)</label>
+                </value>
+                <value>
+                    <fullName>Citation Management (CMP)</fullName>
+                    <default>false</default>
+                    <label>Citation Management (CMP)</label>
+                </value>
+                <value>
+                    <fullName>Digital Permits (DPP)</fullName>
+                    <default>false</default>
+                    <label>Digital Permits (DPP)</label>
+                </value>
+                <value>
+                    <fullName>Mobile Ticketing (MTT)</fullName>
+                    <default>false</default>
+                    <label>Mobile Ticketing (MTT)</label>
+                </value>
+                <value>
+                    <fullName>Transit</fullName>
+                    <default>false</default>
+                    <label>Transit</label>
+                </value>
+                <value>
+                    <fullName>Tolling</fullName>
+                    <default>false</default>
+                    <label>Tolling</label>
+                </value>
+                <value>
+                    <fullName>Payments Processing</fullName>
+                    <default>false</default>
+                    <label>Payments Processing</label>
+                </value>
+                <value>
+                    <fullName>Equipment/Services</fullName>
+                    <default>false</default>
+                    <label>Equipment/Services</label>
+                </value>
+                <value>
+                    <fullName>All Products</fullName>
+                    <default>false</default>
+                    <label>All Products</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

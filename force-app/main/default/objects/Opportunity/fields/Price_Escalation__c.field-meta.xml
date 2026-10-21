@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Escalation__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The Price Escalation clause this Revenue Enhancement deal applies. Set by the Create Increase Opp button; when the deal closes won the clause rolls forward.</inlineHelpText>
+    <label>Price Escalation</label>
+    <referenceTo>Price_Escalation__c</referenceTo>
+    <relationshipLabel>Increase Opportunities</relationshipLabel>
+    <relationshipName>Increase_Opportunities</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

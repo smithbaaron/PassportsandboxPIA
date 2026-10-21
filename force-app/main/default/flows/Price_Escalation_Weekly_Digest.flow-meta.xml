@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <description>Runs every Monday morning and sends Cecily the notices-due digest via the Weekly Digest Core flow. Pause with the Reminders Enabled setting rather than deactivating.</description>
+    <environments>Default</environments>
+    <interviewLabel>Weekly Digest {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Price Escalation - Weekly Digest (Monday)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Run_Digest_Core</targetReference>
+        </connector>
+        <schedule>
+            <frequency>Weekly</frequency>
+            <startDate>2026-10-26</startDate>
+            <startTime>11:30:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Run_Digest_Core</name>
+        <label>Run Weekly Digest Core</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <flowName>Price_Escalation_Weekly_Digest_Core</flowName>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+</Flow>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Step_Needs_Percentage_or_Amount</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISBLANK(Increase_Percentage__c), ISBLANK(Increase_Amount__c), ISBLANK(New_Rate__c))</errorConditionFormula>
+    <errorDisplayField>Increase_Amount__c</errorDisplayField>
+    <errorMessage>Enter an Increase Percentage, an Increase Amount or a New Rate for the step.</errorMessage>
+</ValidationRule>

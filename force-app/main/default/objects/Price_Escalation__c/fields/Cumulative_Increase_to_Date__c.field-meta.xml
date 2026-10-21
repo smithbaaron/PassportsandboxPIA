@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cumulative_Increase_to_Date__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Running total of dollar increases applied. Updated by the roll-forward flow when a step with an amount closes won.</inlineHelpText>
+    <label>Cumulative Increase to Date</label>
+    <precision>18</precision>
+    <scale>4</scale>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Client_Success_Rep__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Defaults from the Account Client Success Rep when left blank. Receives the notice reminder task.</inlineHelpText>
+    <label>Client Success Rep</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Price Escalations</relationshipLabel>
+    <relationshipName>Price_Escalations_CS</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

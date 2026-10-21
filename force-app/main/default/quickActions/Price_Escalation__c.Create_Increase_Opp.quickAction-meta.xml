@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Creates the Revenue Enhancement opportunity for this clause, pre-filled in the team's convention, and links it back.</description>
+    <flowDefinition>Price_Escalation_Create_Increase_Opp</flowDefinition>
+    <label>Create Increase Opp</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

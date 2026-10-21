@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notice_Sent_Date__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Date the increase notice went to the client for the current cycle. Cleared on roll-forward.</inlineHelpText>
+    <label>Notice Sent Date</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

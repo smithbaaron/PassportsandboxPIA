@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Increases_Applied__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Count of increases that have closed won against this clause.</inlineHelpText>
+    <label>Increases Applied</label>
+    <precision>3</precision>
+    <scale>0</scale>
+    <defaultValue>0</defaultValue>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+</CustomField>

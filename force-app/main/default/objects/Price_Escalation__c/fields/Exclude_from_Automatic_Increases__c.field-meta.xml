@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exclude_from_Automatic_Increases__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Tick to keep this client out of automatic increases. Requires an Exclusion Reason. The Create Increase Opp button and the scheduled flows both respect it.</inlineHelpText>
+    <label>Exclude from Automatic Increases</label>
+    <defaultValue>false</defaultValue>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

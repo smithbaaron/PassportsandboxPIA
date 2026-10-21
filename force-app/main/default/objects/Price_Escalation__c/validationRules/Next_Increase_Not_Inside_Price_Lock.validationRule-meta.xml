@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Increase_Not_Inside_Price_Lock</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(Price_Lock__c, NOT(ISBLANK(Price_Lock_End_Date__c)), NOT(ISBLANK(Next_Increase_Date__c)), Next_Increase_Date__c &lt;= Price_Lock_End_Date__c)</errorConditionFormula>
+    <errorDisplayField>Next_Increase_Date__c</errorDisplayField>
+    <errorMessage>Next Increase Date must fall after the Price Lock End Date.</errorMessage>
+</ValidationRule>

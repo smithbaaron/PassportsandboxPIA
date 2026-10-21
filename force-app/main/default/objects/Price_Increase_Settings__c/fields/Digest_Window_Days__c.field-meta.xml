@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Digest_Window_Days__c</fullName>
+    <description>The weekly digest lists clauses whose notice is due within this many days, plus any overdue.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The weekly digest lists clauses whose notice is due within this many days, plus any overdue.</inlineHelpText>
+    <label>Digest Window Days</label>
+    <precision>4</precision>
+    <scale>0</scale>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+</CustomField>

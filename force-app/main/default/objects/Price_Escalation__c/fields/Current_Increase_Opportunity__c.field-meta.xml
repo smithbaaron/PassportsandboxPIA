@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_Increase_Opportunity__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The open Revenue Enhancement opportunity for the current cycle. Set by the Create Increase Opp button; cleared when it closes.</inlineHelpText>
+    <label>Current Increase Opportunity</label>
+    <referenceTo>Opportunity</referenceTo>
+    <relationshipLabel>Price Escalations (Current)</relationshipLabel>
+    <relationshipName>Price_Escalations_Current</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

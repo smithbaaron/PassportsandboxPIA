@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalator_Type__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The shape of the clause. Step Schedule and semi-annual clauses hold their individual steps in the Escalation Steps related list.</inlineHelpText>
+    <label>Escalator Type</label>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Fixed Percentage</fullName>
+                    <default>false</default>
+                    <label>Fixed Percentage</label>
+                </value>
+                <value>
+                    <fullName>Percentage Band</fullName>
+                    <default>false</default>
+                    <label>Percentage Band</label>
+                </value>
+                <value>
+                    <fullName>Fixed Amount per Transaction</fullName>
+                    <default>false</default>
+                    <label>Fixed Amount per Transaction</label>
+                </value>
+                <value>
+                    <fullName>Step Schedule</fullName>
+                    <default>false</default>
+                    <label>Step Schedule</label>
+                </value>
+                <value>
+                    <fullName>Dollar Cap</fullName>
+                    <default>false</default>
+                    <label>Dollar Cap</label>
+                </value>
+                <value>
+                    <fullName>CPI-Linked</fullName>
+                    <default>false</default>
+                    <label>CPI-Linked</label>
+                </value>
+                <value>
+                    <fullName>Price Lock Only</fullName>
+                    <default>false</default>
+                    <label>Price Lock Only</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+</CustomField>

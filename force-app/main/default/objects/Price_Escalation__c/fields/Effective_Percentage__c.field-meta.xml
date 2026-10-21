@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Effective_Percentage__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The percentage used for planning: the Planned Percentage if set, otherwise the org default, capped at the contract Maximum Percentage.</inlineHelpText>
+    <label>Effective Percentage</label>
+    <precision>5</precision>
+    <scale>2</scale>
+    <formula>IF(ISBLANK(Planned_Percentage__c), IF(AND(NOT(ISBLANK(Maximum_Percentage__c)), Maximum_Percentage__c &lt; $Setup.Price_Increase_Settings__c.Default_Planning_Percentage__c), Maximum_Percentage__c, $Setup.Price_Increase_Settings__c.Default_Planning_Percentage__c), Planned_Percentage__c)</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

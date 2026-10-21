@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Notice_Days__c</fullName>
+    <description>Notice days used when a clause leaves Notice Days blank. Contract default is 60.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Notice days used when a clause leaves Notice Days blank. Contract default is 60.</inlineHelpText>
+    <label>Default Notice Days</label>
+    <precision>4</precision>
+    <scale>0</scale>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+</CustomField>

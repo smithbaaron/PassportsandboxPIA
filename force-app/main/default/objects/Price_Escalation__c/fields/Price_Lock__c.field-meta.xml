@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Lock__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The contract locks pricing for a period. Set Price Lock End Date; no increase can take effect before it.</inlineHelpText>
+    <label>Price Lock</label>
+    <defaultValue>false</defaultValue>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

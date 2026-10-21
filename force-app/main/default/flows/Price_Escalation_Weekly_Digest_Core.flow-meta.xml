@@ -1,0 +1,353 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Digest</name>
+        <label>Send digest email</label>
+        <locationX>176</locationX>
+        <locationY>800</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Set_Count</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Capture_Fault</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>$Setup.Price_Increase_Settings__c.Digest_Recipient_Email__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>fSubject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ttBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>63.0</apiVersion>
+    <assignments>
+        <name>Add_Line</name>
+        <label>Add line to digest</label>
+        <locationX>176</locationX>
+        <locationY>500</locationY>
+        <assignmentItems>
+            <assignToReference>digestLines</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ttLine</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>lineCount</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Escalations</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Count</name>
+        <label>Set output count</label>
+        <locationX>176</locationX>
+        <locationY>900</locationY>
+        <assignmentItems>
+            <assignToReference>clausesListed</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>lineCount</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Capture_Fault</name>
+        <label>Capture fault</label>
+        <locationX>600</locationX>
+        <locationY>1000</locationY>
+        <assignmentItems>
+            <assignToReference>faultMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Digest_Enabled</name>
+        <label>Digest enabled and recipient set?</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <defaultConnectorLabel>Paused or no recipient</defaultConnectorLabel>
+        <rules>
+            <name>Enabled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Setup.Price_Increase_Settings__c.Reminders_Enabled__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Price_Increase_Settings__c.Digest_Recipient_Email__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Escalations</targetReference>
+            </connector>
+            <label>Enabled</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>In_Window</name>
+        <label>Notice due within window?</label>
+        <locationX>176</locationX>
+        <locationY>400</locationY>
+        <defaultConnector>
+            <targetReference>Loop_Escalations</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Later</defaultConnectorLabel>
+        <rules>
+            <name>Within_Window</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fInWindow</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Line</targetReference>
+            </connector>
+            <label>Within window</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Anything_To_Send</name>
+        <label>Anything to send?</label>
+        <locationX>176</locationX>
+        <locationY>700</locationY>
+        <defaultConnector>
+            <targetReference>Set_Count</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Nothing due</defaultConnectorLabel>
+        <rules>
+            <name>Has_Lines</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>lineCount</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Digest</targetReference>
+            </connector>
+            <label>Has lines</label>
+        </rules>
+    </decisions>
+    <description>Emails the digest recipient (Cecily) a list of every active clause whose notice is due within the Digest Window Days setting, overdue ones first. Called weekly by the Weekly Digest scheduled flow; autolaunched so it can be run on demand and tested.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>fWindowDays</name>
+        <dataType>Number</dataType>
+        <expression>BLANKVALUE({!$Setup.Price_Increase_Settings__c.Digest_Window_Days__c}, 90)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>fNoticeDue</name>
+        <dataType>Date</dataType>
+        <expression>{!Loop_Escalations.Next_Increase_Date__c} - BLANKVALUE({!Loop_Escalations.Notice_Days__c}, BLANKVALUE({!$Setup.Price_Increase_Settings__c.Default_Notice_Days__c}, 60))</expression>
+    </formulas>
+    <formulas>
+        <name>fInWindow</name>
+        <dataType>Boolean</dataType>
+        <expression>{!fNoticeDue} &lt;= TODAY() + {!fWindowDays}</expression>
+    </formulas>
+    <formulas>
+        <name>fFlag</name>
+        <dataType>String</dataType>
+        <expression>IF({!fNoticeDue} &lt; TODAY(), "OVERDUE", IF({!fNoticeDue} - TODAY() &lt;= 14, "DUE SOON", "upcoming"))</expression>
+    </formulas>
+    <formulas>
+        <name>fRepName</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!Loop_Escalations.Client_Success_Rep__c}), "no CS rep", {!Loop_Escalations.Client_Success_Rep__r.FirstName} &amp; " " &amp; {!Loop_Escalations.Client_Success_Rep__r.LastName})</expression>
+    </formulas>
+    <formulas>
+        <name>fDealNote</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!Loop_Escalations.Current_Increase_Opportunity__c}), "no increase opp yet", "opp open")</expression>
+    </formulas>
+    <formulas>
+        <name>fSubject</name>
+        <dataType>String</dataType>
+        <expression>"Price increase notices due in the next " &amp; TEXT({!fWindowDays}) &amp; " days (" &amp; TEXT({!lineCount}) &amp; ")"</expression>
+    </formulas>
+    <formulas>
+        <name>fRecordUrl</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_590}, FIND("/services", {!$Api.Partner_Server_URL_590}) - 1) &amp; "/" &amp; {!Loop_Escalations.Id}</expression>
+    </formulas>
+    <formulas>
+        <name>fListUrl</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Api.Partner_Server_URL_590}, FIND("/services", {!$Api.Partner_Server_URL_590}) - 1) &amp; "/lightning/o/Price_Escalation__c/list?filterName=Notices_Due_Next_60_Days"</expression>
+    </formulas>
+    <interviewLabel>Weekly Digest Core {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Price Escalation - Weekly Digest (Core)</label>
+    <loops>
+        <name>Loop_Escalations</name>
+        <label>For each active clause</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <collectionReference>Get_Escalations</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>In_Window</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Anything_To_Send</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Escalations</name>
+        <label>Get active, included clauses</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Escalations</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Capture_Fault</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Exclude_from_Automatic_Increases__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Next_Increase_Date__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Price_Escalation__c</object>
+        <sortField>Next_Increase_Date__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Digest_Enabled</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>ttLine</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>[{!fFlag}] {!Loop_Escalations.Account__r.Name} - notice due {!fNoticeDue}, increase effective {!Loop_Escalations.Next_Increase_Date__c} ({!Loop_Escalations.Escalator_Type__c}; CS rep {!fRepName}; {!fDealNote})
+    {!fRecordUrl}
+</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Weekly price increase digest, {!$Flow.CurrentDate}
+
+{!lineCount} clause(s) have a client notice due within the next {!fWindowDays} days (overdue and due-soon items are flagged):
+
+{!digestLines}
+Open the full list in Salesforce: {!fListUrl}
+
+This digest is sent by the Price Escalation - Weekly Digest flow. Change the recipient, window or pause it under Setup &gt; Custom Settings &gt; Price Increase Settings.</text>
+    </textTemplates>
+    <variables>
+        <name>clausesListed</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>digestLines</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>lineCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>faultMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Product__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>The main product line the clause applies to. Used for impact-by-product reporting and to choose the Revenue Enhancement Type on the deal.</inlineHelpText>
+    <label>Primary Product</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>MPP</fullName>
+                    <default>false</default>
+                    <label>MPP</label>
+                </value>
+                <value>
+                    <fullName>CMP</fullName>
+                    <default>false</default>
+                    <label>CMP</label>
+                </value>
+                <value>
+                    <fullName>DPP</fullName>
+                    <default>false</default>
+                    <label>DPP</label>
+                </value>
+                <value>
+                    <fullName>MTT</fullName>
+                    <default>false</default>
+                    <label>MTT</label>
+                </value>
+                <value>
+                    <fullName>Tolling</fullName>
+                    <default>false</default>
+                    <label>Tolling</label>
+                </value>
+                <value>
+                    <fullName>Payments</fullName>
+                    <default>false</default>
+                    <label>Payments</label>
+                </value>
+                <value>
+                    <fullName>Equipment/Services</fullName>
+                    <default>false</default>
+                    <label>Equipment/Services</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+</CustomField>

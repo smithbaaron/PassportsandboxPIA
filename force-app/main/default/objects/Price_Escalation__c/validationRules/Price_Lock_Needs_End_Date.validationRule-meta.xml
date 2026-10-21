@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Lock_Needs_End_Date</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(Price_Lock__c, ISBLANK(Price_Lock_End_Date__c))</errorConditionFormula>
+    <errorDisplayField>Price_Lock_End_Date__c</errorDisplayField>
+    <errorMessage>Enter the Price Lock End Date when Price Lock is ticked.</errorMessage>
+</ValidationRule>
