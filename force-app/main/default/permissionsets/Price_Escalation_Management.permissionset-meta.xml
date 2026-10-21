@@ -9,6 +9,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Price_Escalation__c.Assigned_to_Me__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Price_Escalation__c.Cap_Per_Increase__c</field>
         <readable>true</readable>
@@ -231,6 +236,10 @@
     <flowAccesses>
         <enabled>true</enabled>
         <flow>Price_Escalation_Create_Increase_Opp</flow>
+    </flowAccesses>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>Price_Escalation_Create_Increase_Opp_Core</flow>
     </flowAccesses>
     <objectPermissions>
         <allowCreate>false</allowCreate>

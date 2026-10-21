@@ -14,8 +14,8 @@
     <columns>Current_Increase_Opportunity__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Client_Success_Rep__c</field>
-        <operation>equals</operation><value>USER_ID</value>
+        <field>Assigned_to_Me__c</field>
+        <operation>equals</operation><value>1</value>
     </filters>
     <label>My Price Escalations</label>
 </ListView>

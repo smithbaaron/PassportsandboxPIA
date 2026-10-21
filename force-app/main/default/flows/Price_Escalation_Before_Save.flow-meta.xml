@@ -244,7 +244,7 @@
     <formulas>
         <name>fFirstIncreaseDate</name>
         <dataType>Date</dataType>
-        <expression>ADDMONTHS({!$Record.Contract_Effective_Date__c}, 12 * BLANKVALUE({!$Record.Escalation_Start_Year__c}, 1))</expression>
+        <expression>IF(AND({!$Record.Price_Lock__c}, NOT(ISBLANK({!$Record.Price_Lock_End_Date__c})), ADDMONTHS({!$Record.Contract_Effective_Date__c}, 12 * BLANKVALUE({!$Record.Escalation_Start_Year__c}, 1)) &lt;= {!$Record.Price_Lock_End_Date__c}), {!$Record.Price_Lock_End_Date__c} + 1, ADDMONTHS({!$Record.Contract_Effective_Date__c}, 12 * BLANKVALUE({!$Record.Escalation_Start_Year__c}, 1)))</expression>
     </formulas>
     <interviewLabel>Price Escalation - Before Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Price Escalation - Before Save Defaults</label>

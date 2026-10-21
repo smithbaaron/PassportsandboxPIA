@@ -51,7 +51,7 @@
             <assignToReference>digestLines</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>ttLine</elementReference>
+                <elementReference>fLine</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -172,6 +172,11 @@
     </decisions>
     <description>Emails the digest recipient (Cecily) a list of every active clause whose notice is due within the Digest Window Days setting, overdue ones first. Called weekly by the Weekly Digest scheduled flow; autolaunched so it can be run on demand and tested.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>fLine</name>
+        <dataType>String</dataType>
+        <expression>"[" &amp; {!fFlag} &amp; "] " &amp; {!Loop_Escalations.Account__r.Name} &amp; " - notice due " &amp; TEXT({!fNoticeDue}) &amp; ", increase effective " &amp; TEXT({!Loop_Escalations.Next_Increase_Date__c}) &amp; " (" &amp; TEXT({!Loop_Escalations.Escalator_Type__c}) &amp; "; CS rep " &amp; {!fRepName} &amp; "; " &amp; {!fDealNote} &amp; ")" &amp; BR() &amp; "    " &amp; {!fRecordUrl} &amp; BR()</expression>
+    </formulas>
     <formulas>
         <name>fWindowDays</name>
         <dataType>Number</dataType>
@@ -295,13 +300,6 @@
         </connector>
     </start>
     <status>Active</status>
-    <textTemplates>
-        <name>ttLine</name>
-        <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>[{!fFlag}] {!Loop_Escalations.Account__r.Name} - notice due {!fNoticeDue}, increase effective {!Loop_Escalations.Next_Increase_Date__c} ({!Loop_Escalations.Escalator_Type__c}; CS rep {!fRepName}; {!fDealNote})
-    {!fRecordUrl}
-</text>
-    </textTemplates>
     <textTemplates>
         <name>ttBody</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>

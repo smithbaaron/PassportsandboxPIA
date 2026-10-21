@@ -282,12 +282,37 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Any_Stamps</name>
+        <label>Any clauses to stamp (email-only runs)?</label>
+        <locationX>400</locationX>
+        <locationY>700</locationY>
+        <defaultConnector>
+            <targetReference>Count_Tasks</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>None</defaultConnectorLabel>
+        <rules>
+            <name>Has_Stamps</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>collEscalationsToUpdate</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Stamp_Escalations</targetReference>
+            </connector>
+            <label>Has clauses to stamp</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Any_Tasks</name>
         <label>Any tasks to create?</label>
         <locationX>176</locationX>
         <locationY>650</locationY>
         <defaultConnector>
-            <targetReference>Count_Tasks</targetReference>
+            <targetReference>Any_Stamps</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>None</defaultConnectorLabel>
         <rules>

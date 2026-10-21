@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_to_Me__c</fullName>
+    <description>True when the running user is the clause's Client Success Rep. Drives the My Price Escalations list view.</description>
+    <externalId>false</externalId>
+    <formula>Client_Success_Rep__c = $User.Id</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Assigned to Me</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

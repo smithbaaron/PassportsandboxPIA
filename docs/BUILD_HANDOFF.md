@@ -50,19 +50,19 @@ already exists for the clause (it links to it instead).
 
 | Flow | Trigger | What it does |
 |---|---|---|
-| Price Escalation - Before Save Defaults | before save on Price Escalation | CS rep from Account, Notice Days from setting, first Next Increase Date = contract effective date + 12 x escalation start year months, Status follows the Exclude checkbox |
+| Price Escalation - Before Save Defaults | before save on Price Escalation | CS rep from Account, Notice Days from setting, first Next Increase Date = contract effective date + 12 x escalation start year months (or the day after a price lock ends, if that is later), Status follows the Exclude checkbox |
 | Price Escalation - Create Increase Opp | screen flow behind the button | as above; calls the Core flow |
 | Price Escalation - Create Increase Opp (Core) | autolaunched | the creation logic, reusable by the later automatic version |
-| Price Escalation - Notice Reminder (Daily) | scheduled 07:00 ET daily | calls the Core |
-| Price Escalation - Notice Reminder (Core) | autolaunched | for every Active, non-excluded clause whose Notice Due Date is within Reminder Lead Days (or past), creates one High-priority Task for the CS rep, due on the notice date, once per cycle. The org requires a contact on every Task, so the Task uses the Account's Billing Contact, else its primary contact; if the account has no contacts at all the rep gets the same reminder by email |
-| Price Escalation - Weekly Digest (Monday) | scheduled Mondays 07:30 ET | calls the Core |
+| Price Escalation - Notice Reminder (Daily) | scheduled 07:00 daily, org time zone (America/New_York) | calls the Core |
+| Price Escalation - Notice Reminder (Core) | autolaunched | for every Active, non-excluded clause whose Notice Due Date is within Reminder Lead Days (or past), creates one High-priority Task for the CS rep, due on the notice date, once per cycle. The org requires a contact on every Task, so the Task uses the Account's Billing Contact, else its primary contact; if the account has no contacts at all the rep gets the same reminder by email. Either way the clause is stamped so it fires once per cycle |
+| Price Escalation - Weekly Digest (Monday) | scheduled Mondays 07:30, org time zone | calls the Core |
 | Price Escalation - Weekly Digest (Core) | autolaunched | emails the Digest Recipient a plain-text list of every clause whose notice is due within Digest Window Days, overdue and due-soon flagged, with record links |
 | Opportunity - Price Escalation Roll Forward on Close | after save on Opportunity, when it closes and has a Price Escalation | Won: sets Last Increase Effective Date, applies the matching Escalation Step (adds its amount to the cumulative), rolls Next Increase Date to the next scheduled step or forward one frequency period, clears the current-cycle fields, marks the clause Completed when the lifetime cap is reached. Lost: unlinks the deal |
 
 All flows are Active. The scheduled flows and the digest can be paused with the Reminders Enabled setting.
 
 **Access and UI**: permission set `Price Escalation Management` (CRUD on both objects, field access,
-tab, flow access, Account read); Price Escalations tab; list views All, My Price Escalations, Active,
+tab, flow access, Account read); Price Escalations tab; list views All, My Price Escalations (via the Assigned to Me formula field, since a list view cannot filter a lookup on the running user), Active,
 Notices Due This Quarter, Notices Due in Next 60 Days, Increases Effective This Month, Excluded, Price
 Locks, With Open Increase Opportunity. Report folder *Price Increase Automation* with Increases by
 Month, Notices Due This Quarter (grouped by CS rep), Revenue Impact by Product.
@@ -83,7 +83,9 @@ with no CS rep.
 | Roll-forward, fixed | Next date 2027-03-15 -> 2028-03-15, last effective 2027-03-15, applied 1, deal unlinked |
 | Roll-forward, steps | Year 2 step Applied with the deal, next date jumped to the Year 3 step (2028-01-01), cumulative 0.02 |
 | Roll-forward, cap | 0.35 + 0.05 = 0.40 = lifetime cap -> Status Completed |
-| Closed lost | deal unlinked, clause unchanged |
+| Closed lost | deal unlinked, clause unchanged. A lost deal that is linked but not the clause's current deal closes without error |
+| Reminder, no CS rep and no contacts | email to the Account owner, clause stamped, nothing on the second run |
+| Price lock default | locked clause saved without a date gets the day after the lock ends (2028-01-01), not the first anniversary |
 | Reports | Increases by Month returns the expected month groups and sums |
 
 Closing a Revenue Enhancement deal won still needs what the org already requires today: an opportunity
@@ -129,8 +131,11 @@ notice due")))`) and the contact lookup in the reminder flow can be removed.
    Date explicitly for every row (the 2027 increase date from the sheet) so the before-save default
    does not compute it from the effective date. Set Increases Applied and Cumulative Increase to Date for
    clauses that have already escalated.
-7. The reminder flow starts 2026-10-22 and the digest on Monday 2026-10-26; both are driven by the
-   schedule in the flow start element and can be moved in Flow Builder.
+7. The reminder flow starts 2026-10-22 at 07:00 and the digest on Monday 2026-10-26 at 07:30. The
+   start time in the flow metadata is read in the org's default time zone (America/New_York in this org),
+   not UTC; move it in Flow Builder if a different hour is wanted.
+8. The sandbox settings record currently has the digest going to Aaron, so test digests stay out of
+   Cecily's inbox. Put Cecily's address in the production record.
 
 ## Not done / follow-ups
 
